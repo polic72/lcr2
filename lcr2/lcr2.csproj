@@ -56,7 +56,7 @@
 
     <ItemGroup>
         <Reference Include="Assembly-CSharp">
-            <HintPath>../../../../.local/share/Steam/steamapps/common/Lethal Company/Lethal Company_Data/Managed/Assembly-CSharp.dll</HintPath>
+            <HintPath>../../../../../.local/share/Steam/steamapps/common/Lethal Company/Lethal Company_Data/Managed/Assembly-CSharp.dll</HintPath>
             <Private>True</Private>
         </Reference>
     </ItemGroup>
