@@ -19,8 +19,8 @@ public class RandomManager
     private static void LoadNewLevel(RoundManager __instance)
     {
         //TODO Remember to put this back to the regular RollLevels.
-        //RollLevels(__instance);
-        RollLevels_Debug(__instance);
+        RollLevels(__instance);
+        //RollLevels_Debug(__instance);
         if (RealLevel == null) return;
         if (ScrapLevel == null) return;
         if (IndoorEnemiesLevel == null) return;
