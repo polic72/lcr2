@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 using HarmonyLib;
 
 namespace lcr2.Patches;
@@ -19,7 +20,7 @@ public class RandomManager
     private static void LoadNewLevel(RoundManager __instance)
     {
         //TODO Remember to put this back to the regular RollLevels.
-        RollLevels(__instance);
+        log_text = RollLevels(__instance);
         //RollLevels_Debug(__instance);
         if (RealLevel == null) return;
         if (ScrapLevel == null) return;
@@ -31,26 +32,33 @@ public class RandomManager
         lcr2.Logger.LogInfo("The scrap level is \"" + ScrapLevel.PlanetName + "\"");
         lcr2.Logger.LogInfo("The indoor level is \"" + IndoorEnemiesLevel.PlanetName + "\"");
         lcr2.Logger.LogInfo("The OutdoorEnemiesLevel level is \"" + OutdoorEnemiesLevel.PlanetName + "\"");
-
     }
 
 
-    public static void RollLevels(RoundManager roundManager)
+    public static string RollLevels(RoundManager roundManager)
     {
+        StringBuilder builder = new StringBuilder(256);
+
         RealLevel = roundManager.currentLevel;
+        builder.Append($"Map: {RealLevel.PlanetName}\n");
 
         do
         {
             ScrapLevel =  roundManager.playersManager.levels[Random.Next(0, roundManager.playersManager.levels.Length)];
         } while (RandomManager.ScrapLevel.PlanetName == "71 Gordion");
+        builder.Append($"Scrap: {ScrapLevel.PlanetName}\n");
 
         IndoorEnemiesLevel =  roundManager.playersManager.levels[Random.Next(0, roundManager.playersManager.levels.Length)];
+        builder.Append($"Indoor: {IndoorEnemiesLevel.PlanetName}\n");
 
         do
         {
             OutdoorEnemiesLevel =  roundManager.playersManager.levels[Random.Next(0, roundManager.playersManager.levels.Length)];
             lcr2.Logger.LogInfo("Outdoor level (now " + OutdoorEnemiesLevel.PlanetName + ") was liquidation before");
         } while (OutdoorEnemiesLevel.PlanetName == "44 Liquidation");
+        builder.Append($"Outdoor: {OutdoorEnemiesLevel.PlanetName}\n");
+
+        return builder.ToString();
     }
 
 
